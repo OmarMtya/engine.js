@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine.js</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            background: #eee;
+        }
+    </style>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="module" src="engine/index.js"></script>
+
+    <script src="js/globals.class.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Incluyo una librería de íconos, no afecta en ningún momento la librería del motor, ni el diseño -->
+    <script src="https://kit.fontawesome.com/fdaa3e234d.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <header>
+        <div id="logo">
+            Engine <span id="punto"></span> js
+        </div>
+        <div id="controles">
+            <div id="agregarCirculo">
+                <i class="fas fa-circle"></i>
+            </div>
+            <div id="agregarCuadro">
+                <i class="fas fa-square"></i>
+            </div>
+            <div id="agregarImagen">
+                <i class="far fa-images"></i>
+            </div>
+            <div id="play">
+                <i class="fas fa-play"></i>
+            </div>
+        </div>
+    </header>
+    <main>
+        <aside id="jerarquia">
+            <div>Prueba</div>
+            <div>Prueba</div>
+            <div>Prueba</div>
+            <div>Prueba</div>
+            <div>Prueba</div>
+        </aside>
+        <div id="container-canvas">
+            <canvas id="prueba"></canvas>
+        </div>
+    </main>
+</body>
+</html>
+
+
