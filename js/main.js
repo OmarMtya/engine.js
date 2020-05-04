@@ -1,4 +1,5 @@
 let $ = (x) => document.querySelector(x);
+let $$ = (x) => document.querySelectorAll(x);
 
 window.onload = function () {
 
@@ -19,18 +20,21 @@ window.onload = function () {
         });
         $g.AgregarFigura(figura);
         $g.Dibujar();
-        actualizarLista(figura);
+        actualizarLista();
     };
 
     $("#play").onclick = function(){
         if(!animando){ // Pone play
             animando = true;
             $g.Animar();
+            $("#play").innerHTML = '<i class="fas fa-pause"></i>';
         }else{ // Pone pausa
             animando = false;
             $g.DetenerAnimacion();
             $g.Dibujar();
+            $("#play").innerHTML = '<i class="fas fa-play"></i>';
         }
+        actualizarLista();
     }
 
     $("#agregarCirculo").onclick = function() {
@@ -46,28 +50,111 @@ window.onload = function () {
         });
         $g.AgregarFigura(figura);
         $g.Dibujar();
-        actualizarLista(figura);
+        actualizarLista();
     }
+
+    $$("input, select").forEach(element => {
+        if (element.type == 'select-one' || element.type == 'color') {
+            element.onchange = function(){
+                let obj = $g.figuras.find((x) => x.id == objetoSeleccionado.id);
+                switch (this.id) {
+                    case 'tipo':
+                        obj.tipo = this.value.toLowerCase();
+                        break;
+                    case 'relleno':
+                        obj.transform.relleno = this.value;
+                        console.log(this.value);
+                        break;
+                }
+                $g.Dibujar();
+                actualizarLista();
+            }
+        }else{
+            element.onkeyup = function (a) {
+                let obj = $g.figuras.find((x) => x.id == objetoSeleccionado.id);
+                console.log(obj);
+                switch (this.id) {
+                    case 'nombre':
+                        obj.nombre = this.value;
+                        break;
+                    case 'gravedad':
+                        obj.rigido.valor = parseFloat(this.value);
+                        break;
+                    case 'colision':
+                        obj.rigido.sinColision = this.value;
+                        break;
+                    case 'x':
+                        obj.transform.x = parseFloat(this.value);
+                        break;
+                    case 'y':
+                        obj.transform.y = parseFloat(this.value);
+                        break;
+                    case 'altura':
+                        obj.transform.altura = parseFloat(this.value);
+                        break;
+                    case 'anchura':
+                        obj.transform.anchura = parseFloat(this.value);
+                        break;
+                    case 'imagen':
+    
+                        break;
+                    case 'radio':
+                        obj.transform.radio = parseFloat(this.value);
+                        break;
+                    case 'relleno':
+                        obj.transform.relleno = this.value;
+                        break;
+                    case 'sonido':
+    
+                        break;
+                }
+                actualizarLista();
+                $g.Dibujar();
+            }
+        }
+    });
 
 }
 
-function actualizarLista(obj){
-    console.log($g.figuras);
-    let p = document.createElement("p");
-    p.innerHTML = obj.nombre;
-    switch (obj.tipo) {
-        case 'circulo':
-            p.innerHTML += '<i class="fas fa-circle"></i>';
-            break;
-        case 'cuadrado':
-            p.innerHTML += '<i class="fas fa-square"></i>';
-            break;
-        case 'imagen':
-        case 'sprite':
-            p.innerHTML += '<i class="far fa-images"></i>';
-            break;
-    }
-    // p.classList.add("objeto");
-    $("#jerarquia").appendChild(p);
+function actualizarLista(){
+    $("#jerarquia .objetos").innerHTML = "";
+    $g.figuras.forEach((obj) => {
+        let p = document.createElement("p");
+        p.innerHTML = obj.nombre;
+        p.classList.add('objeto-seleccionable');
+        p.id = obj.id;
+        switch (obj.tipo) {
+            case 'circulo':
+                p.innerHTML += '<i class="fas fa-circle"></i>';
+                break;
+            case 'cuadrado':
+                p.innerHTML += '<i class="fas fa-square"></i>';
+                break;
+            case 'imagen':
+            case 'sprite':
+                p.innerHTML += '<i class="far fa-images"></i>';
+                break;
+        }
+        $("#jerarquia .objetos").appendChild(p);
+        p.onclick = seleccionarObjeto;
+    });
+}
+
+function seleccionarObjeto(){
+    console.log(this);
+    
+    obj = $g.figuras.find((x)=>x.id == this.id);
+    objetoSeleccionado = obj;
+    $("#nombre").value = obj.nombre;
+    $("#gravedad").value = obj.rigido.valor;
+    $("#colision").checked = !obj.rigido.sinColision;
+    $("#x").value = obj.transform.x;
+    $("#y").value = obj.transform.y;
+    $("#tipo").value = obj.tipo;
+    $("#altura").value = obj.transform.altura;
+    $("#anchura").value = obj.transform.anchura;
+    $("#radio").value = obj.transform.radio;
+    $("#relleno").value = obj.transform.relleno;
+
 }
 

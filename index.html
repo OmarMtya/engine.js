@@ -47,6 +47,7 @@
         <!-- Jerarquía -->
         <aside id="jerarquia">
             <div style="padding-bottom: 20px;"><b>Jerarquía</b></div>
+            <div class="objetos"></div>
         </aside>
         <!-- Canvas y container -->
         <div id="container-canvas">
@@ -72,48 +73,49 @@
                 <div id="rigido">
                     <div id="gravedad-input">
                         <label for="">Gravedad</label>
-                        <input type="text">
+                        <input type="number" id="gravedad">
                     </div>
                     <div id="colision-input">
                         <label for="">Colisión</label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="colision">
                     </div>
                 </div>
             </div>
             <div id="transformador">
-                <label for="">Transformador</label>
+                <label for="" class="titulo">Transformador</label>
                 <div id="transform">
                     <div id="x-input">
                         <label for="">X</label>
-                        <input type="text">
+                        <input type="number" id="x">
                     </div>
                     <div id="y-input">
                         <label for="">Y</label>
-                        <input type="text">
+                        <input type="number" id="y">
                     </div>
                     <div id="altura-input">
                         <label for="">Altura</label>
-                        <input type="text">
+                        <input type="number" id="altura">
                     </div>
                     <div id="anchura-input">
                         <label for="">Anchura</label>
-                        <input type="text">
+                        <input type="number" id="anchura">
                     </div>
                     <div id="imagen-input">
                         <label for="">Imagen</label>
-                        <input type="file">
+                        <img src="" alt="" id="preview">
+                        <input type="file" id="imagen">
                     </div>
                     <div id="radio-input">
                         <label for="radio">Radio</label>
-                        <input type="radio">
+                        <input type="number" id="radio">
                     </div>
                     <div id="relleno-input">
                         <label for="">Relleno</label>
-                        <input type="color">
+                        <input type="color" id="relleno">
                     </div>
                     <div id="sonido-input">
                         <label for="">Sonido</label>
-                        <input type="file">
+                        <input type="file" id="sonido">
                     </div>
                 </div>
             </div>

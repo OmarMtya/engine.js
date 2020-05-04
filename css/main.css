@@ -7,39 +7,41 @@
     Configuración
 */
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-header{
+header {
     background-color: #30302f;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
 }
 
-#controles{
+#controles {
     color: #f7f7f7;
     font-size: 25px;
     align-self: center;
     display: flex;
 }
-#controles > div {
+
+#controles>div {
     margin-top: -1px;
     padding: 17px 20px 18px 20px;
     cursor: pointer;
 }
 
-#play{
+#play {
     background-color: #40e334;
 }
 
-#logo{
+#logo {
     display: flex;
     font-size: 20px;
     color: white;
@@ -47,7 +49,7 @@ header{
     font-family: NexaBold;
 }
 
-#punto{
+#punto {
     display: inline-block;
     width: 6px;
     height: 6px;
@@ -58,7 +60,7 @@ header{
     margin-bottom: 8px;
 }
 
-main{
+main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -86,31 +88,44 @@ main{
     padding: 20px;
 }
 
-#jerarquia > p {
+#jerarquia>.objetos>p {
     display: flex;
     padding: 5px 15px;
     justify-content: space-between;
+    cursor: pointer;
 }
 
-select{
+select {
     padding: 5px;
     width: 100%;
     margin: 10px 0;
 }
 
-label, input[type="text"]{
+label,
+input[type="text"],
+input[type="number"] {
     display: block;
 }
 
-#atributos label{
+input:focus {
+    outline-width: 0;
+}
+
+#atributos label {
     font-weight: bold;
     color: #30302f;
     font-size: 12px;
 }
-input[type="file"]{
+
+input[type="file"],
+input[type="color"],
+input[type="number"] {
     margin: 15px 0;
+    width: 100%;
 }
-input[type="text"]{
+
+input[type="text"],
+input[type="number"] {
     width: 100%;
     padding: 5px 0;
     border: 0px solid #c7c7c7;
@@ -118,24 +133,24 @@ input[type="text"]{
     margin-bottom: 20px;
 }
 
-#colision-input{
+#colision-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
-#colision-input > input{
+#colision-input>input {
     height: 15px;
     width: 15px;
 }
 
-#colision-input label{
+#colision-input label {
     display: inline-block;
     padding: 10px 0;
 }
 
-label.titulo{
+label.titulo {
     font-size: 15px !important;
     margin: 20px 0;
     margin-left: -5px;
@@ -145,4 +160,3 @@ label.titulo{
     font-family: NexaBold;
     src: url("../fonts/NexaBold.otf");
 }
-
