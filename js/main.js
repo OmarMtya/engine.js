@@ -21,13 +21,13 @@ window.onload = function () {
     };
 
     $("#play").onclick = function(){
-        if(!animando){
+        if(!animando){ // Pone play
             animando = true;
             $g.Animar();
-        }else{
+        }else{ // Pone pausa
             animando = false;
             $g.DetenerAnimacion();
-            $g.Dibujar(false);
+            $g.Dibujar();
         }
     }
 
