@@ -1,20 +1,19 @@
 /* 
     Canvas ✓
     Nuevos objetos ✓ —
-    Arbol jerarquico *
+    Arbol jerarquico ✓ —
     Atributos del objeto
     PlayButton
     Configuración
 */
 
 *{
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 body{
     font-family: Arial, Helvetica, sans-serif;
-                altura: 20,
 }
 
 header{
@@ -61,17 +60,86 @@ header{
 
 main{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(6, 1fr);
     height: calc(100vh - 64px);
-    /* grid-gap: 10px; */
 }
 
 #container-canvas {
-    grid-column: 2/6;
+    grid-column: 4/10;
     grid-row: 1/6;
 }
 
+#jerarquia {
+    grid-column: 4/1;
+    grid-row: 1/6;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#atributos {
+    grid-column: 13/10;
+    grid-row: 1/6;
+    overflow: hidden;
+    overflow-y: auto;
+    min-width: 0;
+    padding: 20px;
+}
+
+#jerarquia > p {
+    display: flex;
+    padding: 5px 15px;
+    justify-content: space-between;
+}
+
+select{
+    padding: 5px;
+    width: 100%;
+    margin: 10px 0;
+}
+
+label, input[type="text"]{
+    display: block;
+}
+
+#atributos label{
+    font-weight: bold;
+    color: #30302f;
+    font-size: 12px;
+}
+input[type="file"]{
+    margin: 15px 0;
+}
+input[type="text"]{
+    width: 100%;
+    padding: 5px 0;
+    border: 0px solid #c7c7c7;
+    border-bottom: 1px solid #c7c7c7;
+    margin-bottom: 20px;
+}
+
+#colision-input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#colision-input > input{
+    height: 15px;
+    width: 15px;
+}
+
+#colision-input label{
+    display: inline-block;
+    padding: 10px 0;
+}
+
+label.titulo{
+    font-size: 15px !important;
+    margin: 20px 0;
+    margin-left: -5px;
+}
 
 @font-face {
     font-family: NexaBold;

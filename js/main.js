@@ -1,11 +1,12 @@
+let $ = (x) => document.querySelector(x);
+
 window.onload = function () {
-    let $ = (x) => document.querySelector(x);
 
     $g.InitCanvas($("canvas"), $("#container-canvas"));
 
 
     $("#agregarCuadro").onclick = function () {
-        $g.AgregarFigura(new $g.Figura({
+        let figura = new $g.Figura({
             tipo: "cuadrado",
             transform: new $g.Transform({
                 x: 0,
@@ -15,9 +16,10 @@ window.onload = function () {
                 relleno: "#000000"
             }),
             rigido: new $g.Rigido()
-        }));
+        });
+        $g.AgregarFigura(figura);
         $g.Dibujar();
-        actualizarLista();
+        actualizarLista(figura);
     };
 
     $("#play").onclick = function(){
@@ -32,7 +34,7 @@ window.onload = function () {
     }
 
     $("#agregarCirculo").onclick = function() {
-        $g.AgregarFigura(new $g.Figura({
+        let figura = new $g.Figura({
             tipo: "circulo",
             transform: new $g.Transform({
                 x: 10,
@@ -41,15 +43,31 @@ window.onload = function () {
                 relleno: "#000000"
             }),
             rigido: new $g.Rigido()
-        }));
+        });
+        $g.AgregarFigura(figura);
         $g.Dibujar();
-        actualizarLista();
+        actualizarLista(figura);
     }
 
 }
 
-
-function actualizarLista(){
+function actualizarLista(obj){
     console.log($g.figuras);
+    let p = document.createElement("p");
+    p.innerHTML = obj.nombre;
+    switch (obj.tipo) {
+        case 'circulo':
+            p.innerHTML += '<i class="fas fa-circle"></i>';
+            break;
+        case 'cuadrado':
+            p.innerHTML += '<i class="fas fa-square"></i>';
+            break;
+        case 'imagen':
+        case 'sprite':
+            p.innerHTML += '<i class="far fa-images"></i>';
+            break;
+    }
+    // p.classList.add("objeto");
+    $("#jerarquia").appendChild(p);
 }
 

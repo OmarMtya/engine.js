@@ -44,15 +44,79 @@
         </div>
     </header>
     <main>
+        <!-- Jerarquía -->
         <aside id="jerarquia">
-            <div>Prueba</div>
-            <div>Prueba</div>
-            <div>Prueba</div>
-            <div>Prueba</div>
-            <div>Prueba</div>
+            <div style="padding-bottom: 20px;"><b>Jerarquía</b></div>
         </aside>
+        <!-- Canvas y container -->
         <div id="container-canvas">
             <canvas id="prueba"></canvas>
+        </div>
+        <!-- Atributos -->
+        <div id="atributos">
+            <div style="padding-bottom: 20px;"><b>Atributos</b></div>
+            <div id="nombre-input">
+                <label for="">Nombre</label>
+                <input type="text" id="nombre">
+            </div>
+            <div id="tipo-input">
+                <label for="">Tipo</label>
+                <select name="" id="tipo">
+                    <option value="cuadrado">Cuadrado</option>
+                    <option value="circulo">Circulo</option>
+                    <option value="imagen">Imagen</option>
+                </select>
+            </div>
+            <div id="rigido-input">
+                <label for="" class="titulo">Rigido</label>
+                <div id="rigido">
+                    <div id="gravedad-input">
+                        <label for="">Gravedad</label>
+                        <input type="text">
+                    </div>
+                    <div id="colision-input">
+                        <label for="">Colisión</label>
+                        <input type="checkbox">
+                    </div>
+                </div>
+            </div>
+            <div id="transformador">
+                <label for="">Transformador</label>
+                <div id="transform">
+                    <div id="x-input">
+                        <label for="">X</label>
+                        <input type="text">
+                    </div>
+                    <div id="y-input">
+                        <label for="">Y</label>
+                        <input type="text">
+                    </div>
+                    <div id="altura-input">
+                        <label for="">Altura</label>
+                        <input type="text">
+                    </div>
+                    <div id="anchura-input">
+                        <label for="">Anchura</label>
+                        <input type="text">
+                    </div>
+                    <div id="imagen-input">
+                        <label for="">Imagen</label>
+                        <input type="file">
+                    </div>
+                    <div id="radio-input">
+                        <label for="radio">Radio</label>
+                        <input type="radio">
+                    </div>
+                    <div id="relleno-input">
+                        <label for="">Relleno</label>
+                        <input type="color">
+                    </div>
+                    <div id="sonido-input">
+                        <label for="">Sonido</label>
+                        <input type="file">
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
