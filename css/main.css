@@ -79,6 +79,13 @@ main {
     padding: 20px;
 }
 
+.seleccionado{
+    background-color: #3481E3;
+    color: white;
+    border-radius: 2px;
+    padding: 10px;
+}
+
 #atributos {
     grid-column: 13/10;
     grid-row: 1/6;
@@ -86,6 +93,7 @@ main {
     overflow-y: auto;
     min-width: 0;
     padding: 20px;
+    display: none;
 }
 
 #jerarquia>.objetos>p {

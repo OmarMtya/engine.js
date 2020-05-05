@@ -125,24 +125,31 @@ function actualizarLista(){
         p.id = obj.id;
         switch (obj.tipo) {
             case 'circulo':
-                p.innerHTML += '<i class="fas fa-circle"></i>';
+                p.innerHTML += `<i style="color: ${obj.transform.relleno}" class="fas fa-circle"></i>`;
                 break;
             case 'cuadrado':
-                p.innerHTML += '<i class="fas fa-square"></i>';
+                p.innerHTML += `<i style="color: ${obj.transform.relleno}" class="fas fa-square"></i>`;
                 break;
             case 'imagen':
             case 'sprite':
-                p.innerHTML += '<i class="far fa-images"></i>';
+                p.innerHTML += `<i style="color: ${obj.transform.relleno}" class="far fa-images"></i>`;
                 break;
         }
         $("#jerarquia .objetos").appendChild(p);
         p.onclick = seleccionarObjeto;
+        if (objetoSeleccionado && obj.id == objetoSeleccionado.id) { // Mantiene el seleccionado al objeto de la lista si se actualiza
+            p.classList.add('seleccionado');
+        }
     });
 }
 
 function seleccionarObjeto(){
+    $("#atributos").style.display = 'block';
     console.log(this);
-    
+    $$('.seleccionado').forEach((obj) => {
+        obj.classList.remove("seleccionado");
+    });
+    this.classList.add('seleccionado');
     obj = $g.figuras.find((x)=>x.id == this.id);
     objetoSeleccionado = obj;
     $("#nombre").value = obj.nombre;
