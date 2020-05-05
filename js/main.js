@@ -28,13 +28,16 @@ window.onload = function () {
             animando = true;
             $g.Animar();
             $("#play").innerHTML = '<i class="fas fa-pause"></i>';
+            $("#atributos").style.display = 'none';
+            objetoSeleccionado = null;
+            actualizarLista(true);
         }else{ // Pone pausa
             animando = false;
             $g.DetenerAnimacion();
             $g.Dibujar();
             $("#play").innerHTML = '<i class="fas fa-play"></i>';
+            actualizarLista();
         }
-        actualizarLista();
     }
 
     $("#agregarCirculo").onclick = function() {
@@ -116,12 +119,11 @@ window.onload = function () {
 
 }
 
-function actualizarLista(){
+function actualizarLista(removerListeners = false){
     $("#jerarquia .objetos").innerHTML = "";
     $g.figuras.forEach((obj) => {
         let p = document.createElement("p");
         p.innerHTML = obj.nombre;
-        p.classList.add('objeto-seleccionable');
         p.id = obj.id;
         switch (obj.tipo) {
             case 'circulo':
@@ -136,7 +138,10 @@ function actualizarLista(){
                 break;
         }
         $("#jerarquia .objetos").appendChild(p);
-        p.onclick = seleccionarObjeto;
+        if(!removerListeners && !animando){ // Cuando no está animando
+            p.classList.add('objeto-seleccionable');
+            p.onclick = seleccionarObjeto;
+        }
         if (objetoSeleccionado && obj.id == objetoSeleccionado.id) { // Mantiene el seleccionado al objeto de la lista si se actualiza
             p.classList.add('seleccionado');
         }

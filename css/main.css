@@ -100,6 +100,9 @@ main {
     display: flex;
     padding: 5px 15px;
     justify-content: space-between;
+}
+
+.objeto-seleccionable{
     cursor: pointer;
 }
 
