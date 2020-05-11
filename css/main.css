@@ -148,11 +148,18 @@ input[type="number"] {
 #imagen_titulo,
 #sprite_titulo,
 #sonido_titulo,
-#rigido_titulo {
+#rigido_titulo,
+#header_atributos {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+#controles_objeto > i{
+    margin: 6px;
+    cursor: pointer;
+    user-select: none;
 }
 
 #colision-input>input,

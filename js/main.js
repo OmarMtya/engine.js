@@ -211,6 +211,7 @@ window.onload = function () {
                             break;
                     }
                 }
+                break;
         }
     });
 
@@ -303,6 +304,28 @@ function seleccionarObjeto(){
             $("#nombre_audio").innerHTML = obj.transform.sonido.src.title;
         }
         $("#tipo_sonido").value = obj.transform.sonido.activacion;
+    }
+
+    $("#eliminar").onclick = function(){
+        $g.figuras.splice($g.figuras.findIndex((x) => x.id == objetoSeleccionado.id), 1);
+        $("#atributos").style.display = 'none';
+        objetoSeleccionado = null;
+        actualizarLista();
+        $g.Dibujar();
+    }
+
+    $("#subir").onclick = function(){
+        let posicion = $g.figuras.findIndex((x) => x.id == objetoSeleccionado.id);
+        $g.figuras.splice(posicion - 1, 0, $g.figuras.splice(posicion, 1)[0]);
+        actualizarLista();
+        $g.Dibujar();
+    }
+
+    $("#bajar").onclick = function(){
+        let posicion = $g.figuras.findIndex((x) => x.id == objetoSeleccionado.id);
+        $g.figuras.splice(posicion + 1, 0, $g.figuras.splice(posicion, 1)[0]);
+        actualizarLista();
+        $g.Dibujar();
     }
 }
 
