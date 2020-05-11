@@ -85,16 +85,12 @@ window.onload = function () {
             case 'number':
                 element.onkeyup = function (a) {
                     let obj = $g.figuras.find((x) => x.id == objetoSeleccionado.id);
-                    console.log(obj);
                     switch (this.id) {
                         case 'nombre':
                             obj.nombre = this.value;
                             break;
                         case 'gravedad':
                             obj.rigido.valor = parseFloat(this.value);
-                            break;
-                        case 'colision':
-                            obj.rigido.sinColision = this.value;
                             break;
                         case 'x':
                             obj.transform.x = parseFloat(this.value);
@@ -114,9 +110,23 @@ window.onload = function () {
                         case 'relleno':
                             obj.transform.relleno = this.value;
                             break;
+                        case 'rows_sprite':
+                        case 'cols_sprite':
+                        case 'altura_sprite':
+                        case 'anchura_sprite':
+                        case 'velocidad_sprite': // Es importante agregar todos de golpe, por si se selecciona y deselecciona el input de Sprite, ya que no tiene valores default
+                            obj.transform.imagen.sprite.row = parseInt($("#rows_sprite").value) - 1;
+                            obj.transform.imagen.sprite.cols = parseInt($("#cols_sprite").value);
+                            obj.transform.imagen.sprite.altura = parseFloat($("#altura_sprite").value);
+                            obj.transform.imagen.sprite.anchura = parseFloat($("#anchura_sprite").value);
+                            obj.transform.imagen.sprite.velocidad = parseFloat($("#velocidad_sprite").value);
+                            break;
+                        default:
+                            console.log("No definido");
                     }
                     actualizarLista();
                     $g.Dibujar();
+                    console.log(obj.transform.imagen.sprite);
                 }
                 break;
             case 'checkbox':
@@ -143,13 +153,24 @@ window.onload = function () {
                             break;
                         case 'sprite_checkbox':
                             activarElemento($("#sprite-input"), this.checked);
-                            objetoSeleccionado.transform.imagen.sprite = new $g.Sprite(
-                                $("#rows").value,
-                                $("#cols").value,
-                                $("#altura").value,
-                                $("#anchura").value,
-                                $("#velocidad").value
-                            );
+                            if(this.checked){
+                                console.log("Apllico sprite");
+                                
+                                objetoSeleccionado.transform.imagen.sprite = new $g.Sprite(
+                                    $("#rows_sprite").value,
+                                    $("#cols_sprite").value,
+                                    $("#altura_sprite").value,
+                                    $("#anchura_sprite").value,
+                                    $("#velocidad_sprite").value
+                                );
+                            }else{
+                                objetoSeleccionado.transform.imagen.sprite = null;
+                            }
+                            
+                            break;
+                        // Fixme: No está entrando si seleccionas de nuevo, es raro. Pruebalo 1 AM
+                        case 'colision':
+                            objetoSeleccionado.rigido.sinColision = this.checked;
                             break;
                     }
                     // Aquí debería de poner el Dibujar(), pero como son métodos que no hacen un cambio en especifico graficamente, no lo hago
@@ -163,8 +184,6 @@ window.onload = function () {
 
                             let selectedFile = evento.target.files[0];
                             let reader = new FileReader();
-                            // $("#preview").title = selectedFile.name;
-
                             reader.onload = function (event) {
                                 $("#preview").src = event.target.result;
                             };
@@ -172,16 +191,6 @@ window.onload = function () {
 
                             let img = new Image();
                             img.src = URL.createObjectURL(this.files[0]);
-                            // objetoSeleccionado.transform.imagen = new $g.Imagen(
-                            //     img,
-                            //     new $g.Sprite(
-                            //         2,
-                            //         8,
-                            //         163,
-                            //         128,
-                            //         0.5
-                            //     )
-                            // );
                             objetoSeleccionado.transform.imagen = new $g.Imagen(
                                 img
                             );
@@ -268,7 +277,11 @@ function seleccionarObjeto(){
     if(obj.transform.imagen && obj.transform.imagen.src){
         $("#imagen_checkbox").checked = true;
         $("#preview").src = obj.transform.imagen.src.src;
-        // $("#imagen_checkbox").onchange();
+        // $("#imagen_checkbox").onchange(); - Se bugea si agrego esto
+    }
+    if (obj.transform.imagen && obj.transform.imagen.sprite) {
+        $("#sprite_checkbox").checked = true;
+        $("#sprite-input").style.display = 'block';
     }
 }
 
@@ -329,6 +342,7 @@ function figuraDefault(){
     $("#rigido_checkbox").checked = false;
     $("#imagen_checkbox").checked = false;
     $("#sonido_checkbox").checked = false;
+    $("#sprite_checkbox").checked = false;
 
     $("#preview").src = "";
     $("#imagen").value = "";
