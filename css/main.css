@@ -144,14 +144,22 @@ input[type="number"] {
     margin-bottom: 20px;
 }
 
-#colision-input {
+#colision-input,
+#imagen_titulo,
+#sprite_titulo,
+#sonido_titulo,
+#rigido_titulo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
 
-#colision-input>input {
+#colision-input>input,
+#imagen_titulo>input,
+#sonido_titulo>input,
+#sprite_titulo>input,
+#rigido_titulo>input {
     height: 15px;
     width: 15px;
 }
@@ -165,6 +173,12 @@ label.titulo {
     font-size: 15px !important;
     margin: 20px 0;
     margin-left: -5px;
+}
+
+#preview{
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
 }
 
 @font-face {

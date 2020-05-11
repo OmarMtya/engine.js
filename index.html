@@ -68,8 +68,11 @@
                     <option value="imagen">Imagen</option>
                 </select>
             </div>
-            <div id="rigido-input">
+            <div id="rigido_titulo">
                 <label for="" class="titulo">Rigido</label>
+                <input type="checkbox" id="rigido_checkbox">
+            </div>
+            <div id="rigido-input">
                 <div id="rigido">
                     <div id="gravedad-input">
                         <label for="">Gravedad</label>
@@ -77,12 +80,12 @@
                     </div>
                     <div id="colision-input">
                         <label for="">Colisión</label>
-                        <input type="checkbox" id="colision">
+                        <input type="checkbox" checked id="colision">
                     </div>
                 </div>
             </div>
             <div id="transformador">
-                <label for="" class="titulo">Transformador</label>
+                <label for="" margin-left: -2px; class="titulo">Transformador</label>
                 <div id="transform">
                     <div id="x-input">
                         <label for="">X</label>
@@ -100,21 +103,44 @@
                         <label for="">Anchura</label>
                         <input type="number" id="anchura">
                     </div>
-                    <div id="imagen-input">
-                        <label for="">Imagen</label>
-                        <img src="" alt="" id="preview">
-                        <input type="file" id="imagen">
-                    </div>
                     <div id="radio-input">
                         <label for="radio">Radio</label>
                         <input type="number" id="radio">
                     </div>
+                    <div id="imagen_titulo">
+                        <label for="" class="titulo">Imagen</label>
+                        <input type="checkbox" id="imagen_checkbox">
+                    </div>
+                    <div id="imagen-input">
+                        <img src="" alt="" id="preview">
+                        <input type="file" id="imagen">
+                        <div id="sprite_titulo">
+                            <label for="" class="titulo">Sprite</label>
+                            <input type="checkbox" id="sprite_checkbox">
+                        </div>
+                        <div id="sprite-input">
+                            <label for="">Hileras</label>
+                            <input type="number" id="rows" value="1">
+                            <label for="">Columnas</label>
+                            <input type="number" id="cols" value="1">
+                            <label for="">Altura (Sprite individual)</label>
+                            <input type="number" id="altura" value="20">
+                            <label for="">Anchura (Sprite individual)</label>
+                            <input type="number" id="anchura" value="20">
+                            <label for="">Velocidad (Segundos de animación)</label>
+                            <input type="number" id="velocidad" value="1">
+                        </div>
+                    </div>
+                    
                     <div id="relleno-input">
                         <label for="">Relleno</label>
                         <input type="color" id="relleno">
                     </div>
+                    <div id="sonido_titulo">
+                        <label for="" class="titulo">Sonido</label>
+                        <input type="checkbox" id="sonido_checkbox">
+                    </div>
                     <div id="sonido-input">
-                        <label for="">Sonido</label>
                         <input type="file" id="sonido">
                     </div>
                 </div>
