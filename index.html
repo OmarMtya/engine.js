@@ -141,7 +141,14 @@
                         <input type="checkbox" id="sonido_checkbox">
                     </div>
                     <div id="sonido-input">
+                        <label for="tipo_sonido">Tipo de activación</label>
+                        <select id="tipo_sonido">
+                            <option value="colision">Colisión</option>
+                            <option value="colisionInversa">Colisión inversa</option>
+                        </select>
+                        <span id="nombre_audio"></span>
                         <input type="file" id="sonido">
+                        <small style="margin-bottom: 20px; color:orangered"><b>Es necesario tener activado el rigido para que el sonido se reproduzca</b></small>
                     </div>
                 </div>
             </div>

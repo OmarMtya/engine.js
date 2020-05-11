@@ -164,6 +164,10 @@ input[type="number"] {
     width: 15px;
 }
 
+#nombre_audio{
+    padding: 20px;
+}
+
 #colision-input label {
     display: inline-block;
     padding: 10px 0;

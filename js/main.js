@@ -74,7 +74,9 @@ window.onload = function () {
                             break;
                         case 'relleno':
                             obj.transform.relleno = this.value;
-                            console.log(this.value);
+                            break;
+                        case 'tipo_sonido':
+                            obj.transform.sonido.activacion = this.value;
                             break;
                     }
                     $g.Dibujar();
@@ -122,11 +124,10 @@ window.onload = function () {
                             obj.transform.imagen.sprite.velocidad = parseFloat($("#velocidad_sprite").value);
                             break;
                         default:
-                            console.log("No definido");
+                            // console.log("No definido");
                     }
                     actualizarLista();
                     $g.Dibujar();
-                    console.log(obj.transform.imagen.sprite);
                 }
                 break;
             case 'checkbox':
@@ -148,14 +149,9 @@ window.onload = function () {
                                 objetoSeleccionado.transform.imagen = null;
                             }
                             break;
-                        case 'sonido_checkbox':
-                            activarElemento($("#sonido-input"), this.checked);
-                            break;
                         case 'sprite_checkbox':
                             activarElemento($("#sprite-input"), this.checked);
                             if(this.checked){
-                                console.log("Apllico sprite");
-                                
                                 objetoSeleccionado.transform.imagen.sprite = new $g.Sprite(
                                     $("#rows_sprite").value,
                                     $("#cols_sprite").value,
@@ -166,9 +162,19 @@ window.onload = function () {
                             }else{
                                 objetoSeleccionado.transform.imagen.sprite = null;
                             }
-                            
                             break;
-                        // Fixme: No está entrando si seleccionas de nuevo, es raro. Pruebalo 1 AM
+                        case 'sonido_checkbox':
+                            activarElemento($("#sonido-input"), this.checked);
+                            if(this.checked){
+                                objetoSeleccionado.transform.sonido = new $g.Sonido({
+                                    src: null,
+                                    activacion: 'colision'
+                                });
+                            }else{
+                                objetoSeleccionado.transform.sonido = null;
+                            }
+                            break;
+                        //! FIXME: No está entrando si seleccionas de nuevo, es raro. Pruebalo, fecha: 1 AM
                         case 'colision':
                             objetoSeleccionado.rigido.sinColision = this.checked;
                             break;
@@ -195,6 +201,13 @@ window.onload = function () {
                                 img
                             );
                             $g.Dibujar();
+                            break;
+                        case 'sonido':
+                            let audio = new Audio();
+                            audio.src = URL.createObjectURL(this.files[0]);
+                            objetoSeleccionado.transform.sonido.src = audio;
+                            objetoSeleccionado.transform.sonido.src.title = this.files[0].name;
+                            $("#nombre_audio").innerHTML = this.files[0].name;
                             break;
                     }
                 }
@@ -283,6 +296,14 @@ function seleccionarObjeto(){
         $("#sprite_checkbox").checked = true;
         $("#sprite-input").style.display = 'block';
     }
+    if (obj.transform.sonido) {
+        $("#sonido_checkbox").checked = true;
+        $("#sonido-input").style.display = 'block';
+        if (obj.transform.sonido.src){
+            $("#nombre_audio").innerHTML = obj.transform.sonido.src.title;
+        }
+        $("#tipo_sonido").value = obj.transform.sonido.activacion;
+    }
 }
 
 /**
@@ -346,6 +367,9 @@ function figuraDefault(){
 
     $("#preview").src = "";
     $("#imagen").value = "";
+    $("#sonido").value = "";
+    $("#nombre_audio").innerHTML = "";
+    $("#tipo_sonido").value = "colision";
 }
 
 function activarElemento(elemento, mostrar){
