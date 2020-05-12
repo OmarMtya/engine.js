@@ -35,26 +35,50 @@ window.onload = function () {
         $g.AgregarFigura(figura);
         $g.Dibujar();
         actualizarLista();
-    }
+    };
 
-    $("#play").onclick = function(){
-        if(!animando){ // Pone play
+    $("#agregarImagen").onclick = function () {
+        let figura = new $g.Figura({
+            tipo: "imagen",
+            transform: new $g.Transform({
+                x: 100,
+                y: 100,
+                anchura: 100,
+                altura: 100,
+                relleno: "#000000"
+            })
+        });
+        $g.AgregarFigura(figura);
+        $g.Dibujar();
+        actualizarLista();
+    };
+
+    $("#play").onclick = function () {
+        if (!animando) { // Pone play
             animando = true;
             $g.Animar();
             $("#play").innerHTML = '<i class="fas fa-pause"></i>';
             $("#atributos").style.display = 'none';
             objetoSeleccionado = null;
             actualizarLista(true);
-        }else{ // Pone pausa
+            if (sonidoGlobal) {
+                sonidoGlobal.play();
+            }
+        } else { // Pone pausa
             animando = false;
             $g.DetenerAnimacion();
             $g.Dibujar();
             $("#play").innerHTML = '<i class="fas fa-play"></i>';
             actualizarLista();
+            if (sonidoGlobal) {
+                sonidoGlobal.pause();
+            }
         }
-    }
+    };
 
-    
+
+
+
 
     $$("input, select").forEach(element => {
 
@@ -151,7 +175,7 @@ window.onload = function () {
                             break;
                         case 'sprite_checkbox':
                             activarElemento($("#sprite-input"), this.checked);
-                            if(this.checked){
+                            if (this.checked) {
                                 objetoSeleccionado.transform.imagen.sprite = new $g.Sprite(
                                     $("#rows_sprite").value,
                                     $("#cols_sprite").value,
@@ -159,22 +183,21 @@ window.onload = function () {
                                     $("#anchura_sprite").value,
                                     $("#velocidad_sprite").value
                                 );
-                            }else{
+                            } else {
                                 objetoSeleccionado.transform.imagen.sprite = null;
                             }
                             break;
                         case 'sonido_checkbox':
                             activarElemento($("#sonido-input"), this.checked);
-                            if(this.checked){
+                            if (this.checked) {
                                 objetoSeleccionado.transform.sonido = new $g.Sonido({
                                     src: null,
                                     activacion: 'colision'
                                 });
-                            }else{
+                            } else {
                                 objetoSeleccionado.transform.sonido = null;
                             }
                             break;
-                        //! FIXME: No está entrando si seleccionas de nuevo, es raro. Pruebalo, fecha: 1 AM
                         case 'colision':
                             objetoSeleccionado.rigido.sinColision = !this.checked;
                             break;
@@ -215,13 +238,25 @@ window.onload = function () {
         }
     });
 
+
+    $("#sonidoGlobal").onchange = function () {
+        let audio = new Audio();
+        audio.src = URL.createObjectURL(this.files[0]);
+        sonidoGlobal = audio;
+        $("#removerSonido").style.display = 'block';
+    }
+
+    $("#removerSonido").onclick = function () {
+        sonidoGlobal = null;
+        this.style.display = 'none';
+    }
 }
 
 /**
  * Actualiza la lista de los elementos en el canvas
  * @param {boolean} removerListeners - Remueve los clicks listener del elemento
  */
-function actualizarLista(removerListeners = false){
+function actualizarLista(removerListeners = false) {
     $("#jerarquia .objetos").innerHTML = "";
     $g.figuras.forEach((obj) => {
         let p = document.createElement("p");
@@ -240,7 +275,7 @@ function actualizarLista(removerListeners = false){
                 break;
         }
         $("#jerarquia .objetos").appendChild(p);
-        if(!removerListeners && !animando){ // Cuando no está animando
+        if (!removerListeners && !animando) { // Cuando no está animando
             p.classList.add('objeto-seleccionable');
             p.onclick = seleccionarObjeto;
         }
@@ -250,7 +285,7 @@ function actualizarLista(removerListeners = false){
     });
 }
 
-function seleccionarObjeto(){
+function seleccionarObjeto() {
     $("#atributos").style.display = 'block';
     $$('.seleccionado').forEach((obj) => { // Selecciona a todos los de la lista de jerarquía y les remueve el seleccionado
         obj.classList.remove("seleccionado");
@@ -258,7 +293,7 @@ function seleccionarObjeto(){
     this.classList.add('seleccionado'); // Agrega la clase seleccionado al div que se hizo click
 
     // Encuentro la figura que se está seleccionando
-    obj = $g.figuras.find((x)=>x.id == this.id);
+    obj = $g.figuras.find((x) => x.id == this.id);
     objetoSeleccionado = obj;
 
     // Agrega las funciones por default para las figuras
@@ -273,7 +308,7 @@ function seleccionarObjeto(){
 
     // Asigna los valores al DOM dependiendo de los atributos del objeto
     $("#nombre").value = obj.nombre;
-    if(obj.rigido){
+    if (obj.rigido) {
         $("#gravedad").value = obj.rigido.valor;
         $("#colision").checked = !obj.rigido.sinColision;
     }
@@ -284,11 +319,11 @@ function seleccionarObjeto(){
     $("#anchura").value = obj.transform.anchura;
     $("#radio").value = obj.transform.radio;
     $("#relleno").value = obj.transform.relleno;
-    if(obj.rigido){
+    if (obj.rigido) {
         $("#rigido_checkbox").checked = true;
         $("#rigido_checkbox").onchange();
     }
-    if(obj.transform.imagen && obj.transform.imagen.src){
+    if (obj.transform.imagen && obj.transform.imagen.src) {
         $("#imagen_checkbox").checked = true;
         $("#preview").src = obj.transform.imagen.src.src;
         // $("#imagen_checkbox").onchange(); - Se bugea si agrego esto
@@ -300,13 +335,13 @@ function seleccionarObjeto(){
     if (obj.transform.sonido) {
         $("#sonido_checkbox").checked = true;
         $("#sonido-input").style.display = 'block';
-        if (obj.transform.sonido.src){
+        if (obj.transform.sonido.src) {
             $("#nombre_audio").innerHTML = obj.transform.sonido.src.title;
         }
         $("#tipo_sonido").value = obj.transform.sonido.activacion;
     }
 
-    $("#eliminar").onclick = function(){
+    $("#eliminar").onclick = function () {
         $g.figuras.splice($g.figuras.findIndex((x) => x.id == objetoSeleccionado.id), 1);
         $("#atributos").style.display = 'none';
         objetoSeleccionado = null;
@@ -314,14 +349,14 @@ function seleccionarObjeto(){
         $g.Dibujar();
     }
 
-    $("#subir").onclick = function(){
+    $("#subir").onclick = function () {
         let posicion = $g.figuras.findIndex((x) => x.id == objetoSeleccionado.id);
         $g.figuras.splice(posicion - 1, 0, $g.figuras.splice(posicion, 1)[0]);
         actualizarLista();
         $g.Dibujar();
     }
 
-    $("#bajar").onclick = function(){
+    $("#bajar").onclick = function () {
         let posicion = $g.figuras.findIndex((x) => x.id == objetoSeleccionado.id);
         $g.figuras.splice(posicion + 1, 0, $g.figuras.splice(posicion, 1)[0]);
         actualizarLista();
@@ -332,15 +367,15 @@ function seleccionarObjeto(){
 /**
  * Función que elimina los campos que no son necesarios para los circulos
  */
-function esCirculo(activar = true){
+function esCirculo(activar = true) {
     figuraDefault();
-    if(activar){ // Si, es circulo
+    if (activar) { // Si, es circulo
         $("#radio-input").style.display = 'block';
         $("#altura-input").style.display = 'none';
         $("#anchura-input").style.display = 'none';
         $("#imagen_titulo").style.display = 'none';
         esCuadro(false);
-    }else{
+    } else {
         $("#altura-input").style.display = 'block';
         $("#anchura-input").style.display = 'block';
         $("#radio-input").style.display = 'none';
@@ -351,14 +386,14 @@ function esCirculo(activar = true){
 /**
  * Función que elimina los campos que no son necesarios para los cuadros
  */
-function esCuadro(activar = true){
+function esCuadro(activar = true) {
     figuraDefault();
-    if(activar){ // Si, es cuadrado
+    if (activar) { // Si, es cuadrado
         $("#imagen-input").style.display = 'block';
         $("#altura-input").style.display = 'block';
         $("#anchura-input").style.display = 'block';
         esCirculo(false);
-    }else{
+    } else {
         $("#imagen-input").style.display = 'none';
         $("#altura-input").style.display = 'none';
         $("#anchura-input").style.display = 'none';
@@ -368,7 +403,7 @@ function esCuadro(activar = true){
 /**
  * Función que elimina los campos que no son necesarios para las imagenes
  */
-function esImagen(){
+function esImagen() {
     figuraDefault();
     esCuadro();
     $("#imagen-input").style.display = 'block';
@@ -377,7 +412,7 @@ function esImagen(){
 /**
  * Función que ejecuta una figura en default
  */
-function figuraDefault(){
+function figuraDefault() {
     $("#rigido-input").style.display = 'none';
     $("#sonido-input").style.display = 'none';
     $("#imagen-input").style.display = 'none';
@@ -395,10 +430,10 @@ function figuraDefault(){
     $("#tipo_sonido").value = "colision";
 }
 
-function activarElemento(elemento, mostrar){
-    if(mostrar){
+function activarElemento(elemento, mostrar) {
+    if (mostrar) {
         elemento.style.display = 'block';
-    }else{
+    } else {
         elemento.style.display = 'none';
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,24 +21,18 @@
 
     <script src="js/globals.class.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/vista.js"></script>
     <!-- Incluyo una librería de íconos, no afecta en ningún momento la librería del motor, ni el diseño -->
-    <script src="https://kit.fontawesome.com/fdaa3e234d.js" crossorigin="anonymous"></script> 
+    <script src="https://kit.fontawesome.com/fdaa3e234d.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <header>
         <div id="logo">
             Engine <span id="punto"></span> js
         </div>
-        <div id="controles">
-            <div id="agregarCirculo">
-                <i class="fas fa-circle"></i>
-            </div>
-            <div id="agregarCuadro">
-                <i class="fas fa-square"></i>
-            </div>
-            <div id="agregarImagen">
-                <i class="far fa-images"></i>
-            </div>
+        <div class="controles">
+            
             <div id="play">
                 <i class="fas fa-play"></i>
             </div>
@@ -138,7 +133,7 @@
                             <input type="number" id="velocidad_sprite">
                         </div>
                     </div>
-                    
+
                     <div id="relleno-input">
                         <label for="">Relleno</label>
                         <input type="color" id="relleno">
@@ -150,18 +145,49 @@
                     <div id="sonido-input">
                         <label for="tipo_sonido">Tipo de activación</label>
                         <select id="tipo_sonido">
+                            <option value="inicial">Inicial</option>
                             <option value="colision">Colisión</option>
                             <option value="colisionInversa">Colisión inversa</option>
                         </select>
                         <span id="nombre_audio"></span>
                         <input type="file" id="sonido">
-                        <small style="margin-bottom: 20px; color:orangered"><b>Es necesario tener activado el rigido para que el sonido se reproduzca</b></small>
+                        <small style="margin-bottom: 20px; color:orangered"><b>Es necesario tener activado el rigido
+                                para que el sonido se reproduzca si los sonidos se basan en colisiones</b></small>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Configuración layout -->
+        <div id="configuracion">
+            <div class="controles">
+                <div id="ventana">
+                    <i class="far fa-window-maximize"></i>
+                </div>
+                <div id="colores">
+                    <i class="fas fa-palette"></i>
+                </div>
+            </div>
+            <div class="controles">
+                <div id="removerSonido" style="display: none;">
+                    <i class="fas fa-volume-mute"></i>
+                </div>
+                <div id="agregarSonido">
+                    <label for="sonidoGlobal">
+                        <i style="cursor: pointer;" class="fas fa-volume-down"></i>
+                    </label>
+                </div>
+                <div id="agregarCirculo">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div id="agregarCuadro">
+                    <i class="fas fa-square"></i>
+                </div>
+                <div id="agregarImagen">
+                    <i class="far fa-images"></i>
                 </div>
             </div>
         </div>
     </main>
 </body>
+<input type="file" hidden id="sonidoGlobal">
 </html>
-
-

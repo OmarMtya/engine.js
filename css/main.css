@@ -15,23 +15,25 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
-header {
+header,
+#configuracion {
     background-color: #30302f;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
 }
 
-#controles {
+.controles, #configuracion {
     color: #f7f7f7;
     font-size: 25px;
     align-self: center;
     display: flex;
 }
 
-#controles>div {
+.controles>div, #configuracion > div {
     margin-top: -1px;
     padding: 17px 20px 18px 20px;
     cursor: pointer;
@@ -63,18 +65,18 @@ header {
 main {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr) 64px;
     height: calc(100vh - 64px);
 }
 
 #container-canvas {
     grid-column: 4/10;
-    grid-row: 1/6;
+    grid-row: 1/7;
 }
 
 #jerarquia {
     grid-column: 4/1;
-    grid-row: 1/6;
+    grid-row: 1/7;
     overflow-y: auto;
     padding: 20px;
 }
@@ -88,12 +90,19 @@ main {
 
 #atributos {
     grid-column: 13/10;
-    grid-row: 1/6;
+    grid-row: 1/7;
     overflow: hidden;
     overflow-y: auto;
     min-width: 0;
     padding: 20px;
     display: none;
+}
+
+#configuracion{
+    background-color: #30302f;
+    color: white;
+    grid-column: 1/13;
+    height: 100%;
 }
 
 #jerarquia>.objetos>p {
