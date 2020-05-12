@@ -176,7 +176,7 @@ window.onload = function () {
                             break;
                         //! FIXME: No está entrando si seleccionas de nuevo, es raro. Pruebalo, fecha: 1 AM
                         case 'colision':
-                            objetoSeleccionado.rigido.sinColision = this.checked;
+                            objetoSeleccionado.rigido.sinColision = !this.checked;
                             break;
                     }
                     // Aquí debería de poner el Dibujar(), pero como son métodos que no hacen un cambio en especifico graficamente, no lo hago
