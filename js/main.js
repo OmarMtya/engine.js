@@ -250,6 +250,8 @@ window.onload = function () {
         sonidoGlobal = null;
         this.style.display = 'none';
     }
+
+    inicializarVistas();
 }
 
 /**

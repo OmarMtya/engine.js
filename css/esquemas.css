@@ -1,0 +1,64 @@
+/* Azul */
+body.azul{
+    background-color: #F4F4F4;
+    color: #575757 !important;
+}
+.azul header,
+.azul #configuracion {
+    background-color: #005DAB;
+}
+.azul canvas {
+    background-color: #c7c7c7;
+}
+
+.azul input,
+.azul select {
+    background-color: #F4F4F4;
+    border-radius: 2px;
+    padding-left: 10px !important;
+}
+
+
+
+/* Oscuro */
+body.oscuro {
+    background-color: #474746;
+    color: white !important;
+}
+
+.oscuro canvas {
+    background-color: white;
+}
+
+.oscuro label {
+    color: white !important;
+}
+
+.oscuro input,
+.oscuro select {
+    background-color: #c7c7c7;
+    border-radius: 2px;
+    padding-left: 10px !important;
+}
+
+/* Diseño de estructura */
+
+/* Canvas derecha */
+.canvasDerecha #container-canvas {
+    grid-column: 7/13 !important;
+}
+
+.canvasDerecha #atributos{
+    grid-column: 7/4 !important;
+}
+
+/* Canvas izquierda */
+.canvasIzquierda #container-canvas{
+    grid-column: 1/7 !important;
+}
+.canvasIzquierda #jerarquia {
+    grid-column: 7/10 !important;
+}
+.canvasIzquierda #atributos{
+    grid-column: 10/13 !important;
+}
