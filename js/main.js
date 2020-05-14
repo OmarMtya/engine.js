@@ -4,7 +4,13 @@ let $$ = (x) => document.querySelectorAll(x);
 window.onload = function () {
 
     $g.InitCanvas($("canvas"), $("#container-canvas"));
-
+    $g.DetectarClick();
+    $g.clickListener = function (figura) {
+        actualizarLista();
+        objetoSeleccionado = figura;
+        seleccionarObjeto(false);
+    };
+    
 
     $("#agregarCuadro").onclick = function () {
         let figura = new $g.Figura({
@@ -64,6 +70,7 @@ window.onload = function () {
             if (sonidoGlobal) {
                 sonidoGlobal.play();
             }
+            $g.DetectarClick(false);
         } else { // Pone pausa
             animando = false;
             $g.DetenerAnimacion();
@@ -73,12 +80,9 @@ window.onload = function () {
             if (sonidoGlobal) {
                 sonidoGlobal.pause();
             }
+            $g.DetectarClick();
         }
     };
-
-
-
-
 
     $$("input, select").forEach(element => {
 
@@ -287,16 +291,30 @@ function actualizarLista(removerListeners = false) {
     });
 }
 
-function seleccionarObjeto() {
+function seleccionarObjeto(desdeHTML = true) {
     $("#atributos").style.display = 'block';
     $$('.seleccionado').forEach((obj) => { // Selecciona a todos los de la lista de jerarquía y les remueve el seleccionado
         obj.classList.remove("seleccionado");
     });
-    this.classList.add('seleccionado'); // Agrega la clase seleccionado al div que se hizo click
+    if (desdeHTML) {
+        this.classList.add('seleccionado'); // Agrega la clase seleccionado al div que se hizo click
+    }else{
+        $$('.objeto-seleccionable').forEach(obj => {
+            console.log("entro");
+            if(obj.id == objetoSeleccionado.id){
+                obj.classList.add('seleccionado');
+            }
+        });
+    }
 
     // Encuentro la figura que se está seleccionando
-    obj = $g.figuras.find((x) => x.id == this.id);
-    objetoSeleccionado = obj;
+    let obj;
+    if(desdeHTML){
+        obj = $g.figuras.find((x) => x.id == this.id);
+        objetoSeleccionado = obj;
+    }else{
+        obj = objetoSeleccionado;
+    }
 
     // Agrega las funciones por default para las figuras
     if (objetoSeleccionado.tipo == 'circulo') {
@@ -328,6 +346,7 @@ function seleccionarObjeto() {
     if (obj.transform.imagen && obj.transform.imagen.src) {
         $("#imagen_checkbox").checked = true;
         $("#preview").src = obj.transform.imagen.src.src;
+        $("#imagen-input").style.display = 'block';
         // $("#imagen_checkbox").onchange(); - Se bugea si agrego esto
     }
     if (obj.transform.imagen && obj.transform.imagen.sprite) {
@@ -408,7 +427,7 @@ function esCuadro(activar = true) {
 function esImagen() {
     figuraDefault();
     esCuadro();
-    $("#imagen-input").style.display = 'block';
+    $("#imagen-input").style.display = 'none';
 }
 
 /**
