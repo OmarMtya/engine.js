@@ -84,6 +84,7 @@ main {
     grid-row: 1/7;
     overflow-y: auto;
     padding: 20px;
+    display: none;
 }
 
 .seleccionado{

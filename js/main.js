@@ -263,6 +263,7 @@ window.onload = function () {
  * @param {boolean} removerListeners - Remueve los clicks listener del elemento
  */
 function actualizarLista(removerListeners = false) {
+    validarJerarquia();
     $("#jerarquia .objetos").innerHTML = "";
     $g.figuras.forEach((obj) => {
         let p = document.createElement("p");
@@ -368,6 +369,7 @@ function seleccionarObjeto(desdeHTML = true) {
         objetoSeleccionado = null;
         actualizarLista();
         $g.Dibujar();
+        validarJerarquia();
     }
 
     $("#subir").onclick = function () {
@@ -456,5 +458,16 @@ function activarElemento(elemento, mostrar) {
         elemento.style.display = 'block';
     } else {
         elemento.style.display = 'none';
+    }
+}
+
+/**
+ * Función que valida si la jerarquía debería de estar visible o no
+ */
+function validarJerarquia(){
+    if($g.figuras.length == 0){
+        $("#jerarquia").style.display = 'none';
+    }else{
+        $("#jerarquia").style.display = 'block';
     }
 }
